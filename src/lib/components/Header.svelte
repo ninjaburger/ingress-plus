@@ -66,29 +66,29 @@
 {#snippet menu()}
   <ul transition:slide>
     {#if $authData.isValid }
-      <a href="/agent">
-        <li class="{pathname === '/agent' ? 'active' : '{$authData.model.username}'}">
-          <img src="{$authData?.baseModel?.avatar.slice(0, -6)}" alt={$authData.baseModel.username}
-            onerror={() => this.src='/images/user.svg'} />
-          {$authData.baseModel.username}
-        </li>
-      </a>
+      <li class="{pathname === '/agent' ? 'active' : '{$authData.model.username}'}">
+        <a href="/agent">
+            <img src="{$authData?.baseModel?.avatar.slice(0, -6)}" alt={$authData.baseModel.username}
+              onerror={() => this.src='/images/user.svg'} />                      
+            {$authData.baseModel.username}
+        </a>
+      </li>
     {/if}
-    <a href="/badges">
-      <li class="{pathname === '/badges' ? 'active' : ''}">
+    <li class:active={pathname.startsWith("/badges")}>
+      <a href="/badges">
         <img src="/images/medal.svg" alt="Badges" /> Badges
-      </li>
-    </a>
-    <a href="/media">
-      <li class="{pathname === '/media' ? 'active' : ''}">
+      </a>
+    </li>
+    <li class:active={pathname.startsWith("/media")}>
+      <a href="/media">
         <img src="/images/mediagress.png" alt="Mediagress" /> Mediagress
-      </li>
-    </a>
-    <a href="/events">
-      <li class="{pathname === '/events' ? 'active' : ''}">
+      </a>
+    </li>
+    <li class:active={pathname.startsWith("/events")}>
+      <a href="/events">
         <img src="/images/event.svg" alt="Events" /> Events
-      </li>
-    </a>
+      </a>
+    </li>
     <!--
     <a href="/bugs">
       <li class="{pathname === '/bugs' ? 'active' : ''}">
@@ -96,16 +96,16 @@
       </li>
     </a>
     -->
-    <a href="/resources">
-      <li class="{pathname === '/resources' ? 'active' : ''}">
+    <li class:active={pathname === "/resources"}>
+      <a href="/resources">
         <img src="/images/resources.svg" alt="Resources" /> Resources
-      </li>
-    </a>
-    <a href="/stats">
-      <li class="{pathname === '/stats' ? 'active' : ''}">
+      </a>
+    </li>
+    <li class:active={pathname === "/stats"}>
+      <a href="/stats">
         <img src="/images/statistics.svg" alt="Statistics" /> Statistics
-      </li>
-    </a>
+      </a>
+    </li>
     <li>
       <button onclick={openTelegram}><img src="/images/telegram.svg" alt="Telegram" /> Telegram</button>
     </li>
@@ -178,7 +178,7 @@
     display: flex;
     align-items: center;
   }
-  nav ul li {
+  nav ul li a, nav ul li button {
     min-width: 75px;
     width: 120px;
     text-align: center;
@@ -190,7 +190,8 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0);
     transition: border 0.3s ease-in-out;
   }
-  nav ul li:hover,
+  nav ul li a:hover,
+  nav ul li button:hover,
   nav ul li.active {
     border-bottom: 1px solid rgba(255, 255, 255, 1);
   }
@@ -201,7 +202,7 @@
     margin-right: 0.5em;
     border-radius: 6px;
   }
-
+  
   nav[data-nav="large"] {
     display: flex;
   }
